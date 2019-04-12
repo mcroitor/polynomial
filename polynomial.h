@@ -7,6 +7,9 @@
 
 namespace mc {
 
+        /**
+     * polynomial definition
+     */
     template<class TYPE>
     class polynomial {
         std::deque<TYPE>coefficients;
@@ -59,20 +62,45 @@ namespace mc {
     std::ostream& operator<<(std::ostream&, const polynomial<TYPE>&);
 
     template<class TYPE>
+    polynomial<TYPE> derivative(const polynomial<TYPE>&);
+    template<class TYPE>
+    polynomial<TYPE> integral(const polynomial<TYPE>&);
+
+    /**
+     * realization
+     */
+
+    /**
+     * default constructor, creates polynomial 0
+     */
+    template<class TYPE>
     polynomial<TYPE>::polynomial() {
         coefficients.push_back(TYPE());
     }
 
+    /**
+     * copy constructor
+     * @param p
+     */
     template<class TYPE>
     polynomial<TYPE>::polynomial(const polynomial<TYPE>& p) {
         coefficients.insert(coefficients.end(), p.coefficients.begin(), p.coefficients.end());
     }
 
+    /**
+     * constructor that creates 0-degree polynomial (a constant)
+     * @param p a number
+     */
     template<class TYPE>
     polynomial<TYPE>::polynomial(TYPE p) {
         coefficients.push_back(p);
     }
 
+    /**
+     * creates monomial with <i>value</i> coefficient
+     * @param value coefficient of monomial
+     * @param degree
+     */
     template<class TYPE>
     polynomial<TYPE>::polynomial(TYPE value, size_t degree) {
         extend(degree);
@@ -81,6 +109,7 @@ namespace mc {
     }
 
 #if __cplusplus >= 201103L
+
     template<class TYPE>
     polynomial<TYPE>::polynomial(std::initializer_list<TYPE> p) {
         coefficients.insert(coefficients.end(), p.begin(), p.end());
@@ -101,6 +130,11 @@ namespace mc {
         return *this;
     }
 
+    /**
+     * extends polynomial with leading monomials with coefficient 0 to <i>size</i>
+     * degree polynomial
+     * @param size
+     */
     template<class TYPE>
     void polynomial<TYPE>::extend(size_t size) {
         if (coefficients.size() < size) {
@@ -108,6 +142,9 @@ namespace mc {
         }
     }
 
+    /**
+     * remove leading monomials with coefficient 0
+     */
     template<class TYPE>
     void polynomial<TYPE>::normalize() {
         while (coefficients.size() > 1 && *(coefficients.rbegin()) == TYPE()) {
@@ -170,16 +207,31 @@ namespace mc {
         normalize();
     }
 
+    /**
+     * returns <i>index</i> coefficient. I will remove this, because constant version exists.
+     * @param index index of coefficient
+     * @return coefficient
+     */
     template<class TYPE>
     TYPE polynomial<TYPE>::operator[](const size_t index) {
         return coefficients[index];
     }
 
+    /**
+     * returns <i>index</i> coefficient
+     * @param index index of coefficient
+     * @return coefficient
+     */
     template<class TYPE>
     const TYPE polynomial<TYPE>::operator[](const size_t index) const {
         return coefficients[index];
     }
 
+    /**
+     * calculates value of polynomial with x=<i>value</i>
+     * @param value
+     * @return value of polynomial
+     */
     template<class TYPE>
     TYPE polynomial<TYPE>::operator()(const TYPE value) const {
         TYPE result = TYPE();
@@ -192,6 +244,11 @@ namespace mc {
         return result;
     }
 
+    /**
+     * polynomial comparator, such as equal operator
+     * @param p
+     * @return 
+     */
     template<class TYPE>
     bool polynomial<TYPE>::equal(const polynomial<TYPE>& p) const {
         if (p.degree() != degree()) {
@@ -211,6 +268,10 @@ namespace mc {
         return true;
     }
 
+    /**
+     * polynomial degree
+     * @return 
+     */
     template<class TYPE>
     const size_t polynomial<TYPE>::degree() const {
         return coefficients.size() - 1;
@@ -280,6 +341,23 @@ namespace mc {
             out << "x ^ " << p.degree() << " * " << p[p.degree()];
         }
         return out;
+    }
+
+    template<class TYPE>
+    polynomial<TYPE> derivative(const polynomial<TYPE>& p) {
+        polynomial<TYPE> result = {0};
+        // TODO#: implement this
+        for(size_t i = 1; i != p.degree(); ++i){
+            result += polynomial<TYPE>(p[i] / i, i - 1);
+        }
+        return result;
+    }
+
+    template<class TYPE>
+    polynomial<TYPE> integral(const polynomial<TYPE>& p) {
+        polynomial<TYPE> result;
+        // TODO#: implement this
+        return result;
     }
 }
 

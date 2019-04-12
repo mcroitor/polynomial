@@ -97,6 +97,19 @@ void polynomial_spec() {
     }
 }
 
+void polynomial_derivative() {
+    std::cout << "polynomial derivative test" << std::endl;
+    mc::polynomial<double> p = {3, 2, 1};
+    mc::polynomial<double> result = mc::derivative(p);
+
+    mc::polynomial<double> test = {2, 1};
+    std::cout << test << " = " << result << std::endl;
+    if (!(test == result)) {
+        std::cout << "%TEST_FAILED% time=0 testname=spec test (polynomial_test) message=incorrect spec result" << std::endl;
+        return;
+    }
+}
+
 int main(int argc, char** argv) {
     std::cout << "%SUITE_STARTING% newsimpletest2" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
@@ -128,6 +141,10 @@ int main(int argc, char** argv) {
     std::cout << "%TEST_STARTED% test6 (polynomial spec)" << std::endl;
     polynomial_spec();
     std::cout << "%TEST_FINISHED% time=0 test7 (polynomial spec)" << std::endl;
+
+    std::cout << "%TEST_STARTED% test6 (polynomial derivative)" << std::endl;
+    polynomial_derivative();
+    std::cout << "%TEST_FINISHED% time=0 test7 (polynomial derivative)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 
