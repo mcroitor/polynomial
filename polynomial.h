@@ -7,7 +7,7 @@
 
 namespace mc {
 
-        /**
+    /**
      * polynomial definition
      */
     template<class TYPE>
@@ -65,6 +65,8 @@ namespace mc {
     polynomial<TYPE> derivative(const polynomial<TYPE>&);
     template<class TYPE>
     polynomial<TYPE> integral(const polynomial<TYPE>&);
+    template<class TYPE>
+    TYPE integral(const polynomial<TYPE>&, TYPE, TYPE);
 
     /**
      * realization
@@ -346,8 +348,7 @@ namespace mc {
     template<class TYPE>
     polynomial<TYPE> derivative(const polynomial<TYPE>& p) {
         polynomial<TYPE> result = {0};
-        // TODO#: implement this
-        for(size_t i = 1; i != p.degree(); ++i){
+        for (size_t i = 1; i != p.degree(); ++i) {
             result += polynomial<TYPE>(p[i] / i, i - 1);
         }
         return result;
@@ -355,9 +356,16 @@ namespace mc {
 
     template<class TYPE>
     polynomial<TYPE> integral(const polynomial<TYPE>& p) {
-        polynomial<TYPE> result;
-        // TODO#: implement this
+        polynomial<TYPE> result = {0};
+        for (size_t i = 0; i != p.degree() + 1; ++i) {
+            result += polynomial<TYPE>(p[i] * (i + 1), i + 1);
+        }
         return result;
+    }
+
+    template<class TYPE>
+    TYPE integral(const polynomial<TYPE>& p, TYPE top, TYPE bottom) {
+        return integral(p)(top) - integral(p)(bottom);
     }
 }
 

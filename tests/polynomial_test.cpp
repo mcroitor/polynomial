@@ -105,7 +105,20 @@ void polynomial_derivative() {
     mc::polynomial<double> test = {2, 1};
     std::cout << test << " = " << result << std::endl;
     if (!(test == result)) {
-        std::cout << "%TEST_FAILED% time=0 testname=spec test (polynomial_test) message=incorrect spec result" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=derivative test (polynomial_test) message=incorrect derivative result" << std::endl;
+        return;
+    }
+}
+
+void polynomial_integral() {
+    std::cout << "polynomial integral test" << std::endl;
+    mc::polynomial<double> p = {3, 2, 1};
+    mc::polynomial<double> result = mc::integral(p);
+
+    mc::polynomial<double> test = {0, 3, 4, 3};
+    std::cout << test << " = " << result << std::endl;
+    if (!(test == result)) {
+        std::cout << "%TEST_FAILED% time=0 testname=integral test (polynomial_test) message=incorrect integral result" << std::endl;
         return;
     }
 }
@@ -136,15 +149,19 @@ int main(int argc, char** argv) {
 
 //    std::cout << "%TEST_STARTED% test6 (polynomial big integer)" << std::endl;
 //    polynomial_big_int();
-//    std::cout << "%TEST_FINISHED% time=0 test5 (polynomial big integer)" << std::endl;
+//    std::cout << "%TEST_FINISHED% time=0 test6 (polynomial big integer)" << std::endl;
 
-    std::cout << "%TEST_STARTED% test6 (polynomial spec)" << std::endl;
+    std::cout << "%TEST_STARTED% test7 (polynomial spec)" << std::endl;
     polynomial_spec();
     std::cout << "%TEST_FINISHED% time=0 test7 (polynomial spec)" << std::endl;
 
-    std::cout << "%TEST_STARTED% test6 (polynomial derivative)" << std::endl;
+    std::cout << "%TEST_STARTED% test8 (polynomial derivative)" << std::endl;
     polynomial_derivative();
-    std::cout << "%TEST_FINISHED% time=0 test7 (polynomial derivative)" << std::endl;
+    std::cout << "%TEST_FINISHED% time=0 test8 (polynomial derivative)" << std::endl;
+
+    std::cout << "%TEST_STARTED% test9 (polynomial integral)" << std::endl;
+    polynomial_integral();
+    std::cout << "%TEST_FINISHED% time=0 test9 (polynomial integral)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 
