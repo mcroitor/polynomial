@@ -102,7 +102,7 @@ void polynomial_derivative() {
     mc::polynomial<double> p = {3, 2, 1};
     mc::polynomial<double> result = mc::derivative(p);
 
-    mc::polynomial<double> test = {2, 1};
+    mc::polynomial<double> test = {2, 1. / 2};
     std::cout << test << " = " << result << std::endl;
     if (!(test == result)) {
         std::cout << "%TEST_FAILED% time=0 testname=derivative test (polynomial_test) message=incorrect derivative result" << std::endl;

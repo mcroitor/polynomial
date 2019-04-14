@@ -348,7 +348,7 @@ namespace mc {
     template<class TYPE>
     polynomial<TYPE> derivative(const polynomial<TYPE>& p) {
         polynomial<TYPE> result = {0};
-        for (size_t i = 1; i != p.degree(); ++i) {
+        for (size_t i = 1; i != p.degree() + 1; ++i) {
             result += polynomial<TYPE>(p[i] / i, i - 1);
         }
         return result;
