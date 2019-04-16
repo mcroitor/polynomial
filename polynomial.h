@@ -64,9 +64,12 @@ namespace mc {
     template<class TYPE>
     polynomial<TYPE> derivative(const polynomial<TYPE>&);
     template<class TYPE>
-    polynomial<TYPE> integral(const polynomial<TYPE>&);
+    polynomial<TYPE> antiderivative(const polynomial<TYPE>&);
     template<class TYPE>
     TYPE integral(const polynomial<TYPE>&, TYPE, TYPE);
+    
+    template<class TYPE>
+    TYPE get_root(const polynomial<TYPE>&, TYPE, TYPE);
 
     /**
      * realization
@@ -345,6 +348,11 @@ namespace mc {
         return out;
     }
 
+    /**
+     * Calculates derivative of polynomial p'(x)
+     * @param p initial polynomial
+     * @return derivative polynomial
+     */
     template<class TYPE>
     polynomial<TYPE> derivative(const polynomial<TYPE>& p) {
         polynomial<TYPE> result = {0};
@@ -354,8 +362,13 @@ namespace mc {
         return result;
     }
 
+    /**
+     * Calculates antiderivative polynomial
+     * @param p initial polynomial
+     * @return antiderivative
+     */
     template<class TYPE>
-    polynomial<TYPE> integral(const polynomial<TYPE>& p) {
+    polynomial<TYPE> antiderivative(const polynomial<TYPE>& p) {
         polynomial<TYPE> result = {0};
         for (size_t i = 0; i != p.degree() + 1; ++i) {
             result += polynomial<TYPE>(p[i] * (i + 1), i + 1);
@@ -363,9 +376,22 @@ namespace mc {
         return result;
     }
 
+    /**
+     * Calculates definite integral of polynomial on segment [bottom, top]
+     * @param p defined polynomial
+     * @param top 
+     * @param bottom
+     * @return 
+     */
     template<class TYPE>
-    TYPE integral(const polynomial<TYPE>& p, TYPE top, TYPE bottom) {
-        return integral(p)(top) - integral(p)(bottom);
+    TYPE integral(const polynomial<TYPE>& p, TYPE bottom, TYPE top) {
+        return antiderivative(p)(top) - antiderivative(p)(bottom);
+    }
+    
+    template<class TYPE>
+    TYPE get_root(const polynomial<TYPE>&, TYPE, TYPE){
+        // TODO #: implement this!
+        return TYPE();
     }
 }
 

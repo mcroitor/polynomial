@@ -9,8 +9,8 @@ __a0 + a1 * x + a2 * x^2 + ... + an * x^n__.
 
 I want to add next methods:
  * finding roots of polynomials;
- * derivative;
- * integral (without constant C)
+ * derivative; +
+ * antiderivative (integral without constant C); +
 
 ## Example
 
@@ -77,5 +77,12 @@ namespace mc {
     std::istream& operator>>(std::istream&, polynomial<TYPE>&);
     template<class TYPE>
     std::ostream& operator<<(std::ostream&, const polynomial<TYPE>&);
+
+    template<class TYPE>
+    polynomial<TYPE> derivative(const polynomial<TYPE>&);
+    template<class TYPE>
+    polynomial<TYPE> antiderivative(const polynomial<TYPE>&);
+    template<class TYPE>
+    TYPE integral(const polynomial<TYPE>&, TYPE, TYPE);
 }
 ```

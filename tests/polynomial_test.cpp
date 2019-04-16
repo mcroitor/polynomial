@@ -110,15 +110,15 @@ void polynomial_derivative() {
     }
 }
 
-void polynomial_integral() {
-    std::cout << "polynomial integral test" << std::endl;
+void polynomial_antiderivative() {
+    std::cout << "polynomial antiderivative test" << std::endl;
     mc::polynomial<double> p = {3, 2, 1};
-    mc::polynomial<double> result = mc::integral(p);
+    mc::polynomial<double> result = mc::antiderivative(p);
 
     mc::polynomial<double> test = {0, 3, 4, 3};
     std::cout << test << " = " << result << std::endl;
     if (!(test == result)) {
-        std::cout << "%TEST_FAILED% time=0 testname=integral test (polynomial_test) message=incorrect integral result" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=antiderivative test (polynomial_test) message=incorrect antiderivative result" << std::endl;
         return;
     }
 }
@@ -159,9 +159,9 @@ int main(int argc, char** argv) {
     polynomial_derivative();
     std::cout << "%TEST_FINISHED% time=0 test8 (polynomial derivative)" << std::endl;
 
-    std::cout << "%TEST_STARTED% test9 (polynomial integral)" << std::endl;
-    polynomial_integral();
-    std::cout << "%TEST_FINISHED% time=0 test9 (polynomial integral)" << std::endl;
+    std::cout << "%TEST_STARTED% test9 (polynomial antiderivative)" << std::endl;
+    polynomial_antiderivative();
+    std::cout << "%TEST_FINISHED% time=0 test9 (polynomial antiderivative)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 
